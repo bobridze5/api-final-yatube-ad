@@ -1,8 +1,13 @@
 from rest_framework import viewsets, mixins, filters
 from rest_framework.pagination import LimitOffsetPagination
 
-from .serializers import PostSerializer, FollowSerializer
-from posts.models import Post, Follow
+from .serializers import PostSerializer, FollowSerializer, GroupSerializer
+from posts.models import Post, Follow, Group
+
+
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):

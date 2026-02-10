@@ -1,9 +1,9 @@
 import base64
 
-from rest_framework import serializers
-from rest_framework.relations import SlugRelatedField, PrimaryKeyRelatedField
-from rest_framework.validators import UniqueTogetherValidator
 from django.core.files.base import ContentFile
+from rest_framework import serializers
+from rest_framework.relations import SlugRelatedField
+from rest_framework.validators import UniqueTogetherValidator
 
 from posts.models import Comment, Post, Follow, User, Group
 
@@ -52,7 +52,9 @@ class FollowSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if self.context['request'].user == data['following']:
-            raise serializers.ValidationError("Нельзя подписаться на самого себя!")
+            raise serializers.ValidationError(
+                "Нельзя подписаться на самого себя!"
+            )
         return data
 
 
